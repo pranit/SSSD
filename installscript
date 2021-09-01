@@ -1,6 +1,11 @@
+#!/bin/bash
+
 yum  -y install openldap-clients sssd sssd-ldap oddjob-mkhomedir
 cp sssd.conf /etc/sssd
 cp *.pem /etc/openldap/certs/
+update-ca-trust enable
 
 #authconfig --enablesssd --enablesssdauth --enablemkhomedir --update
 authselect select sssd with-mkhomedir
+
+systemctl enable sssd oddjobd
